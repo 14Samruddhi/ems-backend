@@ -1,7 +1,5 @@
 package com.example.ems_backend.dto;
 
-import com.example.ems_backend.entity.Employee;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,18 +9,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class EmployeeDto {
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
-    private String Email;
-
-    public EmployeeDto(Object id) {
-    }
-
-
+    private String email; // Changed to lowercase for convention
+    private String address; // New field
+    private String contactNumber; // New field
+    private double ctc; // New field
+    private String designation; // New field
+    private String workLocation; // New field
 }
