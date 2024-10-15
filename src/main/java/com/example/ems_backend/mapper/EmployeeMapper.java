@@ -4,21 +4,31 @@ import com.example.ems_backend.dto.EmployeeDto;
 import com.example.ems_backend.entity.Employee;
 
 public class EmployeeMapper {
-    public static EmployeeDto mapToEmployeeDto(Employee employee){
+    public static EmployeeDto mapToEmployeeDto(Employee employee) {
         return new EmployeeDto(
-                employee.getId(),      // Use commas to separate parameters
+                employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
-                employee.getEmail()
+                employee.getEmail(),
+                employee.getAddress(),
+                employee.getContactNumber(),
+                employee.getCtc(),
+                employee.getDesignation(),
+                employee.getWorkLocation()
         );
     }
 
-    public static Employee mapToEmployee(EmployeeDto employeeDto){
+    public static Employee mapToEmployee(EmployeeDto employeeDto) {
         return new Employee(
-                employeeDto.getId(),    // Use commas to separate parameters
+                employeeDto.getId(),
                 employeeDto.getFirstName(),
                 employeeDto.getLastName(),
-                employeeDto.getEmail()
+                employeeDto.getEmail(),
+                employeeDto.getAddress(),
+                employeeDto.getContactNumber(),
+                employeeDto.getCtc(),
+                employeeDto.getDesignation(),
+                employeeDto.getWorkLocation()
         );
     }
 }
