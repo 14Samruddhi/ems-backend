@@ -33,7 +33,7 @@ public class Employee {
     private String contactNumber; // New field
 
     @Column(name = "ctc", nullable = false)
-    private double ctc; // New field
+    private double ctc; // New fiedld
 
     @Column(name = "designation", nullable = false)
     private String designation; // New field
