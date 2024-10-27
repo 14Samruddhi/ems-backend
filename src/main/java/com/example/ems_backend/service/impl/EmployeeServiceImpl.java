@@ -1,9 +1,5 @@
 package com.example.ems_backend.service.impl;
 
-
-// Ensure correct package and import
-
-
 import com.example.ems_backend.EmployeeRepository;
 import com.example.ems_backend.dto.EmployeeDto;
 import com.example.ems_backend.entity.Employee;
@@ -24,13 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-        // Use the EmployeeMapper to map DTO to Entity
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
-
-        // Save the employee entity
         Employee savedEmployee = employeeRepository.save(employee);
-
-        // Return the saved entity as a DTO
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
 
@@ -45,7 +36,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
-        // Use mapToEmployeeDto instead of mapToEmployee
         return employees.stream()
                 .map(EmployeeMapper::mapToEmployeeDto)
                 .collect(Collectors.toList());
@@ -53,19 +43,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedemployee) {
-       Employee employee= employeeRepository.findById(employeeId).orElseThrow(()->new ResourceNotFoundException("Employee does not exist with given id :"+employeeId));
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with given id :" + employeeId));
 
-       employee.setFirstName(updatedemployee.getFirstName());
+        employee.setFirstName(updatedemployee.getFirstName());
         employee.setLastName(updatedemployee.getLastName());
         employee.setEmail(updatedemployee.getEmail());
+        employee.setAddress(updatedemployee.getAddress());
+        employee.setContactNumber(updatedemployee.getContactNumber());
+        employee.setCtc(updatedemployee.getCtc());
+        employee.setDesignation(updatedemployee.getDesignation());
+        employee.setWorkLocation(updatedemployee.getWorkLocation());
 
-      Employee updatedEmployeeObj=  employeeRepository.save(employee);
-       return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
+        Employee updatedEmployeeObj = employeeRepository.save(employee);
+        return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
     }
 
     @Override
     public void deleteEmployee(Long employeeId) {
-        Employee employee= employeeRepository.findById(employeeId).orElseThrow(()->new ResourceNotFoundException("Employee does not exist with given id :"+employeeId));
-employeeRepository.deleteById(employeeId);
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with given id :" + employeeId));
+        employeeRepository.deleteById(employeeId);
     }
 }
