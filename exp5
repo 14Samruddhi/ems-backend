@@ -1,0 +1,96 @@
+//one.java 
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface one extends Remote {
+    int palin(String a) throws RemoteException;
+}
+
+
+
+
+
+// two.java
+
+import java.rmi.*;
+import java.rmi.server.*;
+
+public class two extends UnicastRemoteObject implements one {
+    public two() throws RemoteException { }
+
+    public int palin(String a) throws RemoteException {
+        System.out.println("Hello");
+        StringBuffer str = new StringBuffer(a);
+        String str1 = str.toString();
+        System.out.println("Original String: " + str1);
+
+        StringBuffer str2 = str.reverse();
+        System.out.println("Reversed String: " + str2.toString());
+
+        int result = str1.compareTo(str2.toString());
+
+        if (result == 0) {
+            return 1; // Palindrome
+        } else {
+            return 0; // Not a palindrome
+        }
+    }
+}
+
+
+
+
+
+//rmiserver.java
+
+import java.io.*;
+import java.rmi.*;
+import java.rmi.server.*;
+import java.net.*;
+
+public class rmiserver {
+    public static void main(String args[]) throws Exception {
+        try {
+            // Create instance of 'two' class which implements 'one' interface
+            one twox = new two();  // Make sure 'two' implements 'one' interface
+            Naming.rebind("palin", twox); // Bind the object to RMI registry
+            System.out.println("Object registered");
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+}
+
+
+//rmiclient.java
+
+import java.io.*;
+import java.rmi.*;
+import java.net.*;
+public class rmiclient
+{
+public static void main(String args[]) throws Exception
+{
+try
+{
+String s1 = "rmi://localhost/palin";
+one onex = (one)Naming.lookup(s1);
+int m = onex.palin("madam");
+System.out.println("Print : " + m);
+if (m == 1)
+{
+System.out.println("The given string is a Palindrome");
+}
+else
+{
+System.out.println("The given string is not a Palindrome");
+}
+}
+catch (Exception e)
+{
+System.out.println("Exception" + e);
+}
+}
+}
+
